@@ -9,6 +9,8 @@ services:
             ports:
                     - "80:80"
             command : sh -c "
-                chown -R nginx /var/log/nginx;
+                cd /var/log
+                mkdir nginx
+                chown -R www-data:www-data /var/log/nginx;
                 chmod -R 755 /var/log/nginx;
                 "        
