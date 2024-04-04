@@ -4,7 +4,7 @@ services:
             image: 'nginx:stable-alpine3.17'
             volumes:
                     - '/home/ubuntu/hlot/hlot_fe/dist/:/etc/nginx/templates'
-                    - './nginx.conf:/etc/nginx/conf.d'
+                    - './nginx.conf:/etc/nginx'
                     - '/home/ubuntu/hlot/hlot_fe/log:/var/log'
             ports:
                     - "80:80"
