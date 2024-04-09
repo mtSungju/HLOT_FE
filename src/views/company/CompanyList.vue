@@ -1,16 +1,13 @@
 <template>
+  <v-main class="bg-grey-lighten-2">
+    <v-container>
+      CompanyList!!
+    </v-container>
+  </v-main>
 </template>
 
 <script>
 export default {
-  created() {
-    console.log('test');
-    alert('test');
-  },
-  data(){
-    return {
-
-    }
-  }
+  name: "CompanyList"
 }
 </script>

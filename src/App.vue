@@ -17,8 +17,6 @@
         ></v-btn>
 
         <v-spacer></v-spacer>
-
- 
         <v-responsive max-width="130">
             <v-btn variant="outlined"
             color="blue"
@@ -38,33 +36,7 @@
       </v-container>
     </v-app-bar>
 
-    <v-main class="bg-grey-lighten-2">
-      <v-container>
-        <v-row>
-          <v-col>
-            <v-sheet
-              min-height="90vh"
-              rounded="lg"
-            >
-              <!-- 메인화면 가운데 -->
-              <v-date-picker v-model="datePicker"></v-date-picker>
-
-              
-              
-        
-            </v-sheet>
-          </v-col>
-          <v-col>
-            <v-sheet>
-            
-            </v-sheet>
-            <v-container>
-              <v-textarea label="메모장" variant="outlined" rows="10"></v-textarea>
-              </v-container>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-main>
+    <RouterView />
   </v-app>
 </template>
 
@@ -82,8 +54,8 @@
         '프로젝트관리',
       ],
       datePicker: new Date(),
- 
-     } 
+
+     }
     },
   }
 </script>
