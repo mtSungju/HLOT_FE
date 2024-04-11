@@ -9,9 +9,10 @@
 
       <v-btn
         v-for="link in links"
-        :key="link"
-        :text="link"
+        :key="link.path"
+        :text="link.name"
         variant="text"
+        @click="this.$router.push(link.path)"
       ></v-btn>
 
       <v-spacer></v-spacer>
@@ -41,12 +42,12 @@ export default {
   data(){
     return{
       links: [
-        'HOME',
-        '업체관리',
-        '견적서관리',
-        '프로젝트관리',
-      ],
-      datePicker: new Date(),
+        { name: 'HOME',      path: '/' },
+        { name: '업체관리',    path: '/company/companyList' },
+        { name: '견적서관리',   path: '/estimate/estimateList' },
+        { name: '프로젝트관리',  path: '/project/projectList' },
+        { name: '샘플',         path: '/sample/sampleList' },
+      ]
 
     }
   },

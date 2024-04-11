@@ -11,6 +11,18 @@ export default createRouter({
     {
       path: '/company/companyList',
       component: () => import('@/views/company/CompanyList.vue')
+    },
+    {
+      path: '/estimate/estimateList',
+      component: () => import('@/views/estimate/EstimateList.vue')
+    },
+    {
+      path: '/project/projectList',
+      component: () => import('@/views/project/ProjectList.vue')
+    },
+    {
+      path: '/sample/sampleList',
+      component: () => import('@/views/sample/SampleList.vue')
     }
   ],
 })
