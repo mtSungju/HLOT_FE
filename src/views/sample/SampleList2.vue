@@ -11,7 +11,7 @@
             <v-btn class="ma-2" color="blue" variant="tonal">
               수 정
             </v-btn>
-            <v-btn class="ma-2" color="green" variant="tonal" @click="popUp()">
+            <v-btn class="ma-2" color="green" variant="tonal" @click="modalOpen()">
               등 록
             </v-btn>
           </div>
@@ -23,9 +23,9 @@
 
   </v-main>
 
-  <v-dialog v-model="popUpValue" max-width="500px" style="col">
-    <PopupSample v-if="this.popUpValue" ></PopupSample>
-  </v-dialog>
+  <!-- <v-dialog v-model="modalCheck" max-width="500px" style="col"> -->
+    <PopupSample v-if="modalCheck" @close="modalOpen()" userName='최성주'></PopupSample>
+  <!-- </v-dialog> -->
 
 </template>
 
@@ -34,18 +34,24 @@ import PopupSample from '@/components/common/PopupSample.vue'
 
 export default {
   name: "SampleList2",
-   components: {PopupSample},
+
+  components: {
+    PopupSample
+  },
+
+
   data() {
     return {
       "date" : new Date().getFullYear(),
-      "popUpValue" : false,
+       modalCheck: false,
     }
   },  
   methods : {
-    popUp(){
-      alert("popup is available");
-      this.popUpValue = true;
-    }
+  
+    modalOpen() {
+      console.log("부모");
+      this.modalCheck = !this.modalCheck
+  }
   },
 }
 </script>
