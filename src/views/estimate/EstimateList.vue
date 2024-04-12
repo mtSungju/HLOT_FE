@@ -1,115 +1,70 @@
-
-<!-- 작성되어있던 기본 코드
 <template>
-  <v-main class="bg-grey-lighten-2">
-    <v-container>
-      EstimateList!!
-    </v-container>
-  </v-main>
+  <v-card>
+    <v-card-title>
+      견적서 목록
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="검색"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table
+      :headers="headers"
+      :items="estimates"
+      :search="search"
+      class="elevation-1"
+    >
+      <template v-slot:item.actions="{ item }">
+        <v-btn icon @click="viewItem(item)">
+          <v-icon>mdi-eye</v-icon>
+        </v-btn>
+        <v-btn icon @click="editItem(item)">
+          <v-icon>mdi-pencil</v-icon>
+        </v-btn>
+        <v-btn icon @click="deleteItem(item)">
+          <v-icon color="red">mdi-delete</v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script>
 export default {
-  name: "EstimateList"
-}
-</script> -->
-
-<template>
-  <v-main class="bg-grey-lighten-2">
-    <v-container class="elevation-1 white pa-5" fluid>
-      <v-row>
-        <v-col cols="12" class="d-flex justify-space-between align-center">
-          <h1 class="display-1">건강보험심사평가원 망연계 시스템 유지보수건</h1>
-          <v-btn color="blue darken-2" dark large @click="printEstimate">인쇄하기</v-btn>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-card outlined tile>
-            <v-card-title class="blue-grey lighten-2 white--text">고객 정보</v-card-title>
-            <v-card-text>
-              <v-simple-table>
-                <tbody>
-                  <tr>
-                    <td class="font-weight-bold">회사명</td>
-                    <td>한싹</td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">담당자</td>
-                    <td>문호원 상무</td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">연락처</td>
-                    <td>010-8383-5984</td>
-                  </tr>
-                  <tr>
-                    <td class="font-weight-bold">이메일</td>
-                    <td>mhw@hanssak.co.kr</td>
-                  </tr>
-                </tbody>
-              </v-simple-table>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-      <v-row>
-        <v-col cols="12">
-          <v-card>
-            <v-card-title class="blue-grey lighten-2 white--text">견적 내역</v-card-title>
-            <v-card-text>
-              <v-simple-table dense>
-                <thead class="blue-grey lighten-3">
-                  <tr>
-                    <th>품목</th>
-                    <th>수량</th>
-                    <th>단가</th>
-                    <th>합계</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr v-for="(item, index) in items" :key="index">
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>{{ item.total }}</td>
-                  </tr>
-                </tbody>
-              </v-simple-table>
-            </v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-main>
-</template>
-
-<script>
-export default {
-  name: "EstimateList",
   data() {
     return {
-      items: [
-        { name: "망연계시스템", quantity: 9, price: 20000, total: 200000 },
-        { name: "통합관리", quantity: 2, price: 300000, total: 36000000 },
-        { name: "상품 B", quantity: 3, price: 15000, total: 45000 }
-      ]
+      search: '',
+      headers: [
+        { text: '견적 번호', value: 'estimateNumber' },
+        { text: '고객명', value: 'customerName' },
+        { text: '생성 날짜', value: 'dateCreated', sortable: false },
+        { text: '총액', value: 'totalAmount', sortable: false },
+        { text: '동작', value: 'actions', sortable: false }
+      ],
+      estimates: [
+        // 샘플 데이터
+        { estimateNumber: '001', customerName: '홍길동', dateCreated: '2024-04-01', totalAmount: '₩1,000,000' },
+        { estimateNumber: '002', customerName: '김철수', dateCreated: '2024-04-02', totalAmount: '₩1,500,000' }
+      ],
     };
   },
   methods: {
-    printEstimate() {
-      window.print();
+    viewItem(item) {
+      // 상세보기 로직
+    },
+    editItem(item) {
+      // 편집 로직
+    },
+    deleteItem(item) {
+      // 삭제 로직
     }
   }
 };
 </script>
 
 <style>
-td, th {
-  padding: 10px;
-  border: 1px solid #ccc;
-  text-align: center; /* 이 설정을 추가하여 가운데 정렬 */
-}
-body {
-  padding: 1rem;
-}
+/* 필요에 따라 추가 스타일 */
 </style>
