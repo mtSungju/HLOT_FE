@@ -27,6 +27,10 @@ export default createRouter({
     {
       path: '/sample/sampleList2',
       component: () => import('@/views/sample/SampleList2.vue')
+    },
+    {
+      path: '/sample/sampleList3',
+      component: () => import('@/views/sample/SampleList3.vue')
     }
   ],
 })
