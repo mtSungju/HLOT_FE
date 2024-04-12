@@ -1,4 +1,4 @@
-<template >
+<template>
   <v-main class="bg-grey-lighten-2">
     <v-container>
       <v-row>
@@ -23,10 +23,17 @@
 
     </v-container>
   </v-main>
+
+  
+  
+  
+
+
+
 </template>
 <script>
 export default {
-  name: 'Home',
+  name : 'home',
   data(){
     return{
       datePicker: new Date(),
