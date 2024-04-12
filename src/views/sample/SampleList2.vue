@@ -1,6 +1,6 @@
 <template>
   <v-main class="bg-grey-lighten-2">
-    <!-- <h1>{{date}}</h1> -->
+    <h1>{{date}}</h1>
     <v-container>
       <v-row style="margin-top: 50px;">
         <v-col>
@@ -18,21 +18,33 @@
         </v-col>
       </v-row>
     </v-container>
+
+      
+
   </v-main>
+
+  <v-dialog v-model="popUpValue" max-width="500px" style="col">
+    <PopupSample v-if="this.popUpValue" ></PopupSample>
+  </v-dialog>
+
 </template>
 
 <script>
+import PopupSample from '@/components/common/PopupSample.vue'
+
 export default {
   name: "SampleList2",
+   components: {PopupSample},
   data() {
     return {
-      "date" : new Date(),
+      "date" : new Date().getFullYear(),
+      "popUpValue" : false,
     }
   },  
   methods : {
     popUp(){
-      alert("sss");
-      this.$router.push("/common/Popup");
+      alert("popup is available");
+      this.popUpValue = true;
     }
   },
 }
