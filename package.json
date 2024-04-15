@@ -2,7 +2,8 @@
   "name": "vuetify-project",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode local",
+    "prd": "vite --mode prod",
     "build": "vite build",
     "preview": "vite preview"
   },
