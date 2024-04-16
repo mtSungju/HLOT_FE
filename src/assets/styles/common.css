@@ -39,18 +39,10 @@
 
 
 /* 목록에 사용되는 CSS */
-.table-container_mt {
-    height: 100%;
-}
-
 .table-container_mt .table-title_mt {
     text-align: center;
     font-size: 30px;
     font-weight: bold;
     background-color: #f1f1f1;
     margin-bottom: 20px;
-}
-
-.table-container_mt .table-list_mt {
-    height: 83%;
 }

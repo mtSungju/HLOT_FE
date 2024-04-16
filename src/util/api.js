@@ -1,7 +1,10 @@
+import company from "@/sampleData/company.json"
+
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const BE_PORT = import.meta.env.VITE_BE_PORT;
 
 export default {
+
   name: "api",
 
   getSampleData: async(url = '', data = {}) => {
@@ -10,6 +13,10 @@ export default {
       requestUrl : "/sample/sampleData",
       responseData : getSample()
     }
+  },
+
+  companySampleData: () => {
+    return company.companyData;
   }
 
 }

@@ -1,66 +1,67 @@
 <template>
-  <v-main class="bg-grey-lighten-2">
-    <v-container>
-      <v-btn
-        color="blue"
-        @click="getSamples">
-        get Samples()
-      </v-btn>
-      <v-row justify="space-around">
-        <v-col cols="12" md="6">
+  <v-card class="table-container_mt">
+    <div class="table-title_mt">
+      업체 관리
+    </div>
 
-          <v-dialog width="500px">
+    <v-card-title>
+      <v-text-field
+        v-model="search"
+        prepend-inner-icon="mdi-magnify"
+        label="검색"
+      ></v-text-field>
+    </v-card-title>
 
-            <template v-slot:activator="{ props: activatorProps }">
-              <v-btn
-                v-bind="activatorProps"
-                text="등 록"
-                color="green"
-              ></v-btn>
-            </template>
+    <v-data-table
+      :headers="headers"
+      :items="companySampleData"
+      item-value="companyId"
+      v-model="selected"
+      :search="search"
+      :items-per-page-options="itemsPerPageOptions"
+      class="elevation-1 table-list_mt"
+      show-select
+    >
 
-            <template v-slot:default="{ isActive }">
-              <v-card>
-                <v-toolbar title="Opening from the Bottom"></v-toolbar>
+    </v-data-table>
+  </v-card>
 
-                <v-card-text class="text-h2 pa-12"> Hello world! </v-card-text>
-
-                <v-card-actions class="justify-end">
-                  <v-btn text="Close" @click="isActive.value = false"></v-btn>
-                </v-card-actions>
-              </v-card>
-            </template>
-
-          </v-dialog>
-
-        </v-col>
-      </v-row>
-    </v-container>
-  </v-main>
 </template>
 
+<script setup>
+const itemsPerPageOptions = [
+                              {value: 10, title: '10'},
+                              {value: 25, title: '25'},
+                              {value: 50, title: '50'},
+                              {value: 100, title: '100'},
+                            ];
+
+const headers = [
+                  { title: '업체명', key:'companyName' },
+                  { title: '사업자번호', key:'businessRegistNumb'},
+                  { title: '전화번호', key:'companyTel'},
+                  { title: '비고',  key:'remark'},
+                  { title: '등록일자',  key:'registDate'},
+                  { title: '등록자',  key:'registUserName'},
+                ];
+</script>
+
 <script>
-import api from '@/util/api.js';
+import api from '@/util/api.js'
+
 export default {
-  name: "SampleList3",
+  mounted() {
+    /* 업체명, 사업자번호, 전화번호, 비고, 등록일자, 등록자 */
+    this.companySampleData = api.companySampleData();
+  },
   data() {
     return {
-      responseData: {},
-      activatorProps:{
-        isActive: true
-      }
-    }
+      search: '',
+      companySampleData: [],
+      selected : [],
+    };
   },
-  methods : {
-    async getSamples(){
-      await api.getSampleData().then( res => {
-          this.responseData = res.responseData;
-        }).catch( e => {
-          console.log(e);
-        });
-
-      console.log(this.responseData);
-    }
-  },
-}
+  methods: {
+  }
+};
 </script>
