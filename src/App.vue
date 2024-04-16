@@ -25,3 +25,7 @@ import Popup from '@/components/common/Popup.vue'
     },
   }
 </script>
+
+<style>
+  @import "@/assets/styles/common.css";
+</style>
