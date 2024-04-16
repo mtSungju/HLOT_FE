@@ -4,10 +4,14 @@
       견적서 목록
     </div>
 
+    <div style="text-align : right; margin-right : 20px;">
+      <v-btn color="#5865f2" @click="saveItem()">등록</v-btn>
+    </div>
+
     <v-card-title>
       <v-text-field
         v-model="search"
-        append-icon="mdi-magnify"
+        prepend-inner-icon="mdi-magnify"
         label="검색"
         single-line
         hide-details
@@ -30,22 +34,11 @@
                                 ]"
       class="elevation-1 table-list_mt"
       show-select
-
     >
-    <!--actions="{ item }"-->
-       <template v-slot:item.actions="{ item }">
-        <v-btn  @click="viewItem(item)" style="background-color : gray; margin-right:10px;">
-          수정
-        </v-btn>
 
-        <v-btn @click="deleteItem(item)" style="background-color : red;">
-          삭제
-        </v-btn>
-      </template>
 
     </v-data-table>
   </v-card>
-
 </template>
 
 <script>
@@ -65,6 +58,7 @@ export default {
         { title: '고객명', key:'customerName'},
         { title: '생성 날짜', key:'dateCreated'},
         { title: '총액',  key:'totalAmount'},
+        
       ],
       estimates: [
         // 샘플 데이터
@@ -76,10 +70,10 @@ export default {
   },
   methods: {
     viewItem(item) {
-      // 상세보기 로직
+      console.log(JSON.stringify(item.estimateNumber));
     },
-    editItem(item) {
-      // 편집 로직
+    saveItem() {
+      // 등록 로직
     },
     deleteItem(item) {
       // 삭제 로직
