@@ -1,17 +1,17 @@
 <template>
     <div id="modal-wrap">
     <div id="modal-container">
-    
+
     <!--  모달창 content  -->
     <!-- 동적 할당할 부분 -->
-    
-    
-    
+
+
+
     <div class="modal-btn">
       <v-btn @click="modalOpen()">닫기</v-btn>
       <v-btn @click="modalOpen()">저장</v-btn>
     </div>
-   
+
   </div>
 </div>
 </template>
@@ -20,8 +20,8 @@
 
 
 export default {
-  name: "Popup",   
-  props: {  
+  name: "Popup",
+  props: {
     userName : '',
   },
   mounted() {
@@ -36,7 +36,7 @@ export default {
     modalOpen(){
         console.log("자식");
         this.$emit('close');
-        
+
     }
   },
 }
@@ -52,7 +52,7 @@ export default {
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
 }
-/* modal or popup */
+/* store or popup */
 #modal-container {
   position: relative;
   top: 50%;

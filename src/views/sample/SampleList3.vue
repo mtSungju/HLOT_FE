@@ -12,6 +12,10 @@
       ></v-text-field>
     </v-card-title>
 
+    <div class="table-btn-list">
+      <v-btn color="#5865f2" @click="pushRegPop">등록</v-btn>
+    </div>
+
     <v-data-table
       :headers="headers"
       :items="companySampleData"
@@ -29,12 +33,9 @@
 </template>
 
 <script setup>
-const itemsPerPageOptions = [
-                              {value: 10, title: '10'},
-                              {value: 25, title: '25'},
-                              {value: 50, title: '50'},
-                              {value: 100, title: '100'},
-                            ];
+import cmm from '@/util/cmm.js'
+
+const itemsPerPageOptions = cmm.cmmConfig.itemsPerPageOptions;
 
 const headers = [
                   { title: '업체명', key:'companyName' },
@@ -49,6 +50,7 @@ const headers = [
 
 <script>
 import api from '@/util/api.js'
+import store from "@/store/store";
 
 export default {
   created() {
@@ -66,6 +68,9 @@ export default {
     };
   },
   methods: {
+    pushRegPop: () => {
+      store.commit('toggleModal');
+    }
   }
 };
 </script>

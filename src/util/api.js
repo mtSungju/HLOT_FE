@@ -4,14 +4,22 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const BE_PORT = import.meta.env.VITE_BE_PORT;
 
 export default {
-
   name: "api",
 
   getSampleData: async(url = '', data = {}) => {
-    console.log('REQUEST URL : [ ' + BASE_URL + ':' + BE_PORT + '/' + url + ' ]\n -data:',data);
+    let res;
+    try{
+      res = getSample()
+    } catch (e) {
+      console.log(" getSampleData Err => ", e);
+      res = { err : e };
+    } finally {
+      console.log('REQUEST URL : [ ' + BASE_URL + ':' + BE_PORT + '/' + url + ' ]\n -data:',data);
+    }
+
     return {
-      requestUrl : "/sample/sampleData",
-      responseData : getSample()
+      requestUrl : url,
+      responseData : res
     }
   },
 
