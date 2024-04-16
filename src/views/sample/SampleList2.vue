@@ -10,25 +10,41 @@
         hide-details
       ></v-text-field>
     </v-card-title>
+
     <v-data-table
       :headers="headers"
       :items="estimates"
+      item-value="estimateNumber"
+      v-model="selected"
       :search="search"
+      :loading="loading"
+      select-strategy="page"
+      :items-per-page-options="[
+                                  {value: 10, title: '10'},
+                                  {value: 25, title: '25'},
+                                  {value: 50, title: '50'},
+                                  {value: 100, title: '100'},
+                                ]"
       class="elevation-1"
+      show-select
+      
     >
-      <template v-slot:item.actions="{ item }">
-        <v-btn icon @click="viewItem(item)">
-          <v-icon>mdi-eye</v-icon>
+    <!--actions="{ item }"-->
+       <template v-slot:item.actions="{ item }">
+        <v-btn  @click="viewItem(item)" style="background-color : gray; margin-right:10px;">
+          수정
         </v-btn>
-        <v-btn icon @click="editItem(item)">
-          <v-icon>mdi-pencil</v-icon>
+       
+        <v-btn @click="deleteItem(item)" style="background-color : red;">
+          삭제
         </v-btn>
-        <v-btn icon @click="deleteItem(item)">
-          <v-icon color="red">mdi-delete</v-icon>
-        </v-btn>
-      </template>
+      </template> 
+
     </v-data-table>
   </v-card>
+
+  {{this.selected}}
+  
 </template>
 
 <script>
@@ -36,6 +52,7 @@ export default {
   mounted() {
     for(let i=0; i<5000; i++){
       this.estimates.push(this.estimates[0]);
+      
     }
 
   },
@@ -54,6 +71,7 @@ export default {
         { estimateNumber: '001', customerName: '홍길동', dateCreated: '2024-04-01', totalAmount: '₩1,000,000' },
         { estimateNumber: '002', customerName: '김철수', dateCreated: '2024-04-02', totalAmount: '₩1,500,000' },
       ],
+      selected : [],
     };
   },
   methods: {
