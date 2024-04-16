@@ -52,7 +52,7 @@ export default {
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
 }
-/* store or popup */
+/* modal or popup */
 #modal-container {
   position: relative;
   top: 50%;
