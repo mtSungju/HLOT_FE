@@ -1,9 +1,10 @@
 <template>
   <title>MT Data</title>
   <v-app id="inspire">
-    <Header />
-    <RouterView />
-
+    <Header class="header-container_mt"/>
+    <div class="main-container_mt">
+      <RouterView/>
+    </div>
 
   </v-app>
 

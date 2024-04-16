@@ -1,5 +1,56 @@
 
-/* 리스트 형식에서 사용되는 CSS */
-.data-table{
-    margin-top: 50px;
+/* font 관련 */
+@font-face {
+    font-family: 'basic';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/2404@1.0/WavvePADO-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: 'basic', serif !important;
+}
+
+
+/* App.vue 전체 CSS */
+.main-container_mt {
+    margin-top: 75px;
+    height: 92vh;
+}
+
+/* Header 영역 */
+.header-container_mt {
+    background-color: black !important;
+}
+
+.header-nav_mt {
+
+}
+
+.header-nav_mt .header-btn_mt {
+    margin-left: 20px;
+    color: white;
+}
+
+.header-nav_mt .header-btn_mt:hover {
+    background-color: #2e5fff;
+    font-size: 15px;
+}
+
+
+/* 목록에 사용되는 CSS */
+.table-container_mt {
+    height: 100%;
+}
+
+.table-container_mt .table-title_mt {
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    margin-bottom: 20px;
+}
+
+.table-container_mt .table-list_mt {
+    height: 83%;
 }

@@ -1,8 +1,7 @@
 <template>
-  <v-card>
+  <v-card class="data-table">
     <v-card-title>
       견적서 목록
-      <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -34,6 +33,12 @@
 
 <script>
 export default {
+  mounted() {
+    for(let i=0; i<5000; i++){
+      this.estimates.push(this.estimates[0]);
+    }
+
+  },
   data() {
     return {
       search: '',
@@ -47,7 +52,7 @@ export default {
       estimates: [
         // 샘플 데이터
         { estimateNumber: '001', customerName: '홍길동', dateCreated: '2024-04-01', totalAmount: '₩1,000,000' },
-        { estimateNumber: '002', customerName: '김철수', dateCreated: '2024-04-02', totalAmount: '₩1,500,000' }
+        { estimateNumber: '002', customerName: '김철수', dateCreated: '2024-04-02', totalAmount: '₩1,500,000' },
       ],
     };
   },

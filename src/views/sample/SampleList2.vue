@@ -1,7 +1,10 @@
 <template>
-  <v-card class="data-table">
-    <v-card-title>
+  <v-card class="table-container_mt">
+    <div class="table-title_mt">
       견적서 목록
+    </div>
+
+    <v-card-title>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -25,26 +28,24 @@
                                   {value: 50, title: '50'},
                                   {value: 100, title: '100'},
                                 ]"
-      class="elevation-1"
+      class="elevation-1 table-list_mt"
       show-select
-      
+
     >
     <!--actions="{ item }"-->
        <template v-slot:item.actions="{ item }">
         <v-btn  @click="viewItem(item)" style="background-color : gray; margin-right:10px;">
           수정
         </v-btn>
-       
+
         <v-btn @click="deleteItem(item)" style="background-color : red;">
           삭제
         </v-btn>
-      </template> 
+      </template>
 
     </v-data-table>
   </v-card>
 
-  {{this.selected}}
-  
 </template>
 
 <script>
@@ -52,7 +53,7 @@ export default {
   mounted() {
     for(let i=0; i<5000; i++){
       this.estimates.push(this.estimates[0]);
-      
+
     }
 
   },

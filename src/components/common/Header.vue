@@ -1,8 +1,8 @@
 <template>
   <v-app-bar flat>
-    <v-container class="mx-auto d-flex justify-center" >
+    <v-container class="mx-auto d-flex justify-center header-nav_mt" >
 
-      <v-btn
+      <v-btn class="header-btn_mt"
         v-for="link in links"
         :key="link.path"
         :text="link.name"
@@ -13,19 +13,11 @@
       <v-spacer></v-spacer>
 
       <v-responsive max-width="130">
-        <v-btn variant="outlined"
-               color="blue"
-               class="mx-2"
-               @click="search"
+        <v-btn class="header-btn_mt"
+          variant="outlined"
+          color="white"
+          @click="search"
         >로그인</v-btn>
-      </v-responsive>
-
-      <v-responsive max-width="130">
-        <v-btn variant="outlined"
-               color="blue"
-               class="mx-2"
-               @click="search"
-        >로그아웃</v-btn>
       </v-responsive>
 
     </v-container>
