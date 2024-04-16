@@ -60,3 +60,10 @@
     background-color: #7c7c7c;
     color: white;
 }
+
+.table-container_mt .table-btn-list {
+    text-align: right;
+}
+.table-container_mt .table-btn-list button {
+    margin: 10px;
+}
