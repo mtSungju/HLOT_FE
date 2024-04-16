@@ -33,7 +33,7 @@
     </v-data-table>
   </v-card>
 
-  <popUp v-if="this.popUpValue" ></popUp>
+  <popUp v-if="this.popUpValue" @click="close()"></popUp>
 </template>
 
 <script setup>
