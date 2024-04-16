@@ -60,11 +60,10 @@ export default {
     return {
       search: '',
       headers: [
-        { text: '견적 번호', value: 'estimateNumber' },
-        { text: '고객명', value: 'customerName' },
-        { text: '생성 날짜', value: 'dateCreated', sortable: false },
-        { text: '총액', value: 'totalAmount', sortable: false },
-        { text: '동작', value: 'actions', sortable: false }
+        { title: '견적 번호', key:'estimateNumber' },
+        { title: '고객명', key:'customerName'},
+        { title: '생성 날짜', key:'dateCreated'},
+        { title: '총액',  key:'totalAmount'},
       ],
       estimates: [
         // 샘플 데이터
