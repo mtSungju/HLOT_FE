@@ -13,7 +13,6 @@
     </v-card-title>
 
     <v-data-table
-      id="company-list"
       :headers="headers"
       :items="companySampleData"
       item-value="companyId"
