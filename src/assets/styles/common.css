@@ -33,7 +33,7 @@
 }
 
 .header-nav_mt .header-btn_mt:hover {
-    background-color: #2e5fff;
+    border-bottom: 3px solid #2e5fff;
     font-size: 15px;
 }
 
