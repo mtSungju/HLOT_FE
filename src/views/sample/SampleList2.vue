@@ -34,20 +34,19 @@
                                 ]"
       class="elevation-1 table-list_mt"
       show-select
+      @click:row="popUpOpen"
     >
 
 
     </v-data-table>
   </v-card>
+  {{this.selected}}
 </template>
 
 <script>
 export default {
   mounted() {
-    for(let i=0; i<5000; i++){
-      this.estimates.push(this.estimates[0]);
-
-    }
+    
 
   },
   data() {
@@ -69,15 +68,14 @@ export default {
     };
   },
   methods: {
-    viewItem(item) {
-      console.log(JSON.stringify(item.estimateNumber));
-    },
     saveItem() {
       // 등록 로직
     },
-    deleteItem(item) {
-      // 삭제 로직
-    }
+    popUpOpen(event,{item}){
+      console.log("popUpOpen");
+      console.log(item.estimateNumber);
+      
+    },
   }
 };
 </script>
