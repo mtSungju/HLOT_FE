@@ -32,6 +32,8 @@
 
     </v-data-table>
   </v-card>
+
+  <popUp v-if="this.popUpValue" ></popUp>
 </template>
 
 <script setup>
@@ -51,6 +53,10 @@
 </script>
 
 <script>
+
+import popUp from "@/components/common/PopupSample.vue";
+
+
 export default {
   mounted() {
   },
@@ -63,6 +69,7 @@ export default {
         { estimateNumber: '002', customerName: '김철수', dateCreated: '2024-04-02', totalAmount: '₩1,500,000' },
       ],
       selected : [],
+      popUpValue : false,
     };
   },
   methods: {
@@ -72,8 +79,12 @@ export default {
     popUpOpen(event,{item}){
       console.log("popUpOpen");
       console.log(item.estimateNumber);
-
+      this.popUpValue = true;
     },
+    
+    close(){
+      this.popUpValue = false;
+    }
   }
 };
 </script>
