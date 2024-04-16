@@ -1,10 +1,8 @@
 <template>
   <v-card class="table-container_mt">
     <div class="table-title_mt">
-      견적서 목록
+      견적서 관리
     </div>
-
-
 
     <v-card-title>
       <v-text-field
