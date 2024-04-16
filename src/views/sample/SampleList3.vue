@@ -13,6 +13,7 @@
     </v-card-title>
 
     <v-data-table
+      id="company-list"
       :headers="headers"
       :items="companySampleData"
       item-value="companyId"
@@ -44,13 +45,17 @@ const headers = [
                   { title: '등록일자',  key:'registDate'},
                   { title: '등록자',  key:'registUserName'},
                 ];
+
 </script>
 
 <script>
 import api from '@/util/api.js'
 
 export default {
+  created() {
+  },
   mounted() {
+
     /* 업체명, 사업자번호, 전화번호, 비고, 등록일자, 등록자 */
     this.companySampleData = api.companySampleData();
   },
