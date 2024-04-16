@@ -33,24 +33,30 @@
 }
 
 .header-nav_mt .header-btn_mt:hover {
-    background-color: #2e5fff;
+    border-bottom: 3px solid #2e5fff;
     font-size: 15px;
 }
 
 
 /* 목록에 사용되는 CSS */
-.table-container_mt {
-    height: 100%;
-}
-
 .table-container_mt .table-title_mt {
     text-align: center;
-    font-size: 30px;
+    font-size: 40px;
     font-weight: bold;
-    background-color: #f1f1f1;
-    margin-bottom: 20px;
 }
 
-.table-container_mt .table-list_mt {
-    height: 83%;
+.table-container_mt .table-list_mt thead {
+    background-color: #000000;
+    color: white;
+    font-size: 17px;
+}
+
+.table-container_mt .table-list_mt thead th:hover {
+    color: white !important;
+}
+
+.table-container_mt .table-list_mt tbody tr:hover {
+    cursor: pointer;
+    background-color: #7c7c7c;
+    color: white;
 }
