@@ -12,7 +12,8 @@
       </div>
 
       <div class="modal-content">
-
+        asdf]asldfp<br>
+        afkadsokfs
       </div>
 
     </div>
@@ -50,12 +51,22 @@ export default {
     padding: 20px;
   }
   .modal {
-    width: 100%; background: white;
+    width: 70%; background: white;
     border-radius: 8px;
     padding: 20px;
-    margin-top: 10%;
+    margin-top: 5%;
+    margin-left: 14%;
   }
 
+  .modal-title{
+    text-align: center;
+    font-size: 20px;
+    background-color: black;
+    color: white;
+  }
+  .modal-content{
+    min-height: 500px;
+  }
   .close {
     cursor: pointer;
     display:inline-block;
