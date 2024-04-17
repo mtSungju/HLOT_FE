@@ -8,11 +8,11 @@
       </div>
 
       <div class="modal-title">
-        HELLO
+        {{this.title}}
       </div>
 
       <div class="modal-content">
-        asdf]asldfp<br>
+        asdfasldfp<br>
         afkadsokfs
       </div>
 
@@ -31,7 +31,7 @@ export default {
       return store
     }
   },
-  props: ['data'],
+  props: ['data', 'title'],
   methods:{
   }
 }

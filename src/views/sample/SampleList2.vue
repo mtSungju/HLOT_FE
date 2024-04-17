@@ -33,7 +33,7 @@
     </v-data-table>
   </v-card>
 
-  <popUp v-if="this.popUpValue" @click="close()"></popUp>
+  <popUp v-if="store.getters.isOpenModal" @click="close()"></popUp>
 </template>
 
 <script setup>
@@ -55,11 +55,16 @@
 <script>
 
 import popUp from "@/components/common/PopupSample.vue";
-
+import store from "@/store/store";
 
 export default {
   mounted() {
   },
+  computed: {
+      store() {
+        return store
+      }
+    },
   data() {
     return {
       search: '',
@@ -77,9 +82,8 @@ export default {
       // 등록 로직
     },
     popUpOpen(event,{item}){
-      console.log("popUpOpen");
-      console.log(item.estimateNumber);
-      this.popUpValue = true;
+      this.$store.commit("toggleModal");
+      this.$emit('title','견적서관리');
     },
     
     close(){
