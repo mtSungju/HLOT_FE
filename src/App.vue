@@ -3,10 +3,8 @@
   <v-app id="inspire">
     <Header class="header-container_mt"/>
     <div class="main-container_mt">
-      <RouterView @title="showEmit"/>
+      <RouterView />
     </div>
-
-    <CommonModal v-if="store.getters.isOpenModal" :title="title"/>
   </v-app>
 
 </template>
@@ -23,17 +21,6 @@ import store from "@/store/store";
       }
     },
     components: {CommonModal, Popup, Header},
-    data(){
-     return{
-        title : '',
-     }
-    },
-    methods: {
-      showEmit(param){
-        this.title = param;
-        console.log("emit value =>" + this.title);
-      }
-    }
   }
 </script>
 

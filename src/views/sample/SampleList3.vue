@@ -1,4 +1,6 @@
 <template>
+  <CompanyModal v-if="store.getters.isOpenModal" />
+
   <v-card class="table-container_mt">
     <div class="table-title_mt">
       업체 관리
@@ -34,6 +36,7 @@
 
 <script setup>
 import cmm from '@/util/cmm.js'
+import CompanyModal from "@/components/modal/CompanyModal.vue";
 
 const itemsPerPageOptions = cmm.cmmConfig.itemsPerPageOptions;
 
