@@ -1,4 +1,6 @@
 <template>
+  <EstimateModal v-if="store.getters.isOpenModal" />
+
   <v-card class="table-container_mt">
     <div class="table-title_mt">
       견적서 관리
@@ -13,7 +15,7 @@
     </v-card-title>
 
     <div class="table-btn-list">
-      <v-btn color="#5865f2" @click="saveItem()">등록</v-btn>
+      <v-btn color="#5865f2" @click="pushRegPop">등록</v-btn>
     </div>
 
     <v-data-table
@@ -54,7 +56,7 @@
 
 <script>
 
-import popUp from "@/components/common/PopupSample.vue";
+import EstimateModal from "@/components/modal/EstimateModal.vue";
 import store from "@/store/store";
 
 export default {
@@ -83,7 +85,11 @@ export default {
     },
     popUpOpen(event,{item}){
       this.$store.commit("toggleModal");
-      this.$emit('title','견적서관리');
+      
+    },
+
+    pushRegPop: () => {
+      store.commit("toggleModal");
     },
     
     close(){

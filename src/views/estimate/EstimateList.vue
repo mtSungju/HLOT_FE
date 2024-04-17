@@ -1,75 +1,100 @@
 <template>
-  <v-card class="data-table">
+  <EstimateModal v-if="store.getters.isOpenModal" />
+
+  <v-card class="table-container_mt">
+    <div class="table-title_mt">
+      견적서 관리
+    </div>
+
     <v-card-title>
-      견적서 목록
       <v-text-field
         v-model="search"
-        append-icon="mdi-magnify"
+        prepend-inner-icon="mdi-magnify"
         label="검색"
-        single-line
-        hide-details
       ></v-text-field>
     </v-card-title>
+
+    <div class="table-btn-list">
+      <v-btn color="#5865f2" @click="pushRegPop">등록</v-btn>
+    </div>
+
     <v-data-table
       :headers="headers"
       :items="estimates"
+      item-value="estimateNumber"
+      v-model="selected"
       :search="search"
-      class="elevation-1"
+      select-strategy="page"
+      :items-per-page-options="itemsPerPageOptions"
+      class="elevation-1 table-list_mt"
+      show-select
+      @click:row="popUpOpen"
     >
-      <template v-slot:item.actions="{ item }">
-        <v-btn icon @click="viewItem(item)">
-          <v-icon>mdi-eye</v-icon>
-        </v-btn>
-        <v-btn icon @click="editItem(item)">
-          <v-icon>mdi-pencil</v-icon>
-        </v-btn>
-        <v-btn icon @click="deleteItem(item)">
-          <v-icon color="red">mdi-delete</v-icon>
-        </v-btn>
-      </template>
+
+
     </v-data-table>
   </v-card>
+
+  <popUp v-if="store.getters.isOpenModal" @click="close()"></popUp>
 </template>
 
+<script setup>
+  const itemsPerPageOptions = [
+    {value: 10, title: '10'},
+    {value: 25, title: '25'},
+    {value: 50, title: '50'},
+    {value: 100, title: '100'},
+  ];
+
+  const headers = [
+    { title: '견적 번호', key:'estimateNumber' },
+    { title: '고객명', key:'customerName'},
+    { title: '생성 날짜', key:'dateCreated'},
+    { title: '총액',  key:'totalAmount'},
+  ];
+</script>
+
 <script>
+
+import EstimateModal from "@/components/modal/EstimateModal.vue";
+import store from "@/store/store";
+
 export default {
   mounted() {
-    for(let i=0; i<5000; i++){
-      this.estimates.push(this.estimates[0]);
-    }
-
   },
+  computed: {
+      store() {
+        return store
+      }
+    },
   data() {
     return {
       search: '',
-      headers: [
-        { text: '견적 번호', value: 'estimateNumber' },
-        { text: '고객명', value: 'customerName' },
-        { text: '생성 날짜', value: 'dateCreated', sortable: false },
-        { text: '총액', value: 'totalAmount', sortable: false },
-        { text: '동작', value: 'actions', sortable: false }
-      ],
       estimates: [
         // 샘플 데이터
         { estimateNumber: '001', customerName: '홍길동', dateCreated: '2024-04-01', totalAmount: '₩1,000,000' },
         { estimateNumber: '002', customerName: '김철수', dateCreated: '2024-04-02', totalAmount: '₩1,500,000' },
       ],
+      selected : [],
+      popUpValue : false,
     };
   },
   methods: {
-    viewItem(item) {
-      // 상세보기 로직
+    saveItem() {
+      // 등록 로직
     },
-    editItem(item) {
-      // 편집 로직
+    popUpOpen(event,{item}){
+      this.$store.commit("toggleModal");
+      
     },
-    deleteItem(item) {
-      // 삭제 로직
+
+    pushRegPop: () => {
+      store.commit("toggleModal");
+    },
+    
+    close(){
+      this.popUpValue = false;
     }
   }
 };
 </script>
-
-<style>
-/* 필요에 따라 추가 스타일 */
-</style>
