@@ -4,9 +4,14 @@
     font-size: 20px;
     background-color: black;
     color: white;
+    margin-bottom: 20px;
 }
 .modal-content{
     min-height: 500px;
+}
+
+.modal-content v-col {
+    margin: -15px 0;
 }
 
 body {
@@ -36,6 +41,7 @@ div {
     margin-left: 14%;
     align-items: center;
     justify-content: center;
+    overflow: auto;
 }
 
 .close {
