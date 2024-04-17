@@ -21,14 +21,21 @@ div {
     position: fixed;
     padding: 20px;
     z-index: 9999;
+    display: flex;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
 }
 .modal {
-    width: 70%; background: white;
+    min-width: 70%;
+    background: white;
     border-radius: 8px;
     padding: 20px;
     margin-top: 5%;
     margin-left: 14%;
-    z-index: 0;
+    align-items: center;
+    justify-content: center;
 }
 
 .close {
