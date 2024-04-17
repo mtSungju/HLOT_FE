@@ -37,6 +37,25 @@
             />
           </v-col>
         </v-row>
+        <v-row>
+          <v-col>
+            업체담당자
+            <br/><br/>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-data-table
+              :headers="headers"
+              :items="companySampleData"
+              item-value="companyId"
+              v-model="selected"
+              :search="search"
+              :items-per-page-options="itemsPerPageOptions"
+              class="elevation-1 table-list_mt"
+            ></v-data-table>
+          </v-col>
+        </v-row>
       </v-container>
     </div>
   </ModalLayout>
@@ -44,6 +63,15 @@
 
 <script setup>
 import ModalLayout from "@/layouts/ModalLayout.vue";
+import cmm from "@/util/cmm";
+
+const itemsPerPageOptions = cmm.cmmConfig.itemsPerPageOptions;
+const headers = [
+  { title: '담당자명', key:'companyManagerName' },
+  { title: '전화번호', key:'companyManagerTel'},
+  { title: '비고', key:'remark'},
+];
+
 </script>
 
 <script>

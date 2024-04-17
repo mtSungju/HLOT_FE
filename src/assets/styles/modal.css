@@ -10,7 +10,7 @@
     min-height: 500px;
 }
 
-.modal-content v-col {
+.modal-content .v-col {
     margin: -15px 0;
 }
 
@@ -25,7 +25,7 @@ div {
     background: rgba(0,0,0,0.5);
     position: fixed;
     padding: 20px;
-    z-index: 9999;
+    z-index: 1;
     display: flex;
     left: 0;
     top: 0;
