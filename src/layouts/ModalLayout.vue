@@ -18,7 +18,7 @@
 import store from "@/store/store";
 
 export default {
-  name: "CommonModal",
+  name: "ModalLayout",
   computed: {
     store() {
       return store

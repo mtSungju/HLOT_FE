@@ -16,7 +16,7 @@ import ModalLayout from "@/layouts/ModalLayout.vue";
 
 <script>
 export default {
-  name: "ModalTest"
+  name: "CompanyModal"
 }
 </script>
 
