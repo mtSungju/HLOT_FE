@@ -36,7 +36,6 @@ export default {
         { name: '프로젝트관리',  path: '/project/projectList' },
         { name: '샘플',         path: '/sample/sampleList' },
         { name: '샘플2',         path: '/sample/sampleList2' },
-        { name: '샘플3',         path: '/sample/sampleList3' },
       ]
 
     }

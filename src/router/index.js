@@ -29,10 +29,6 @@ export default createRouter({
       component: () => import('@/views/sample/SampleList2.vue')
     },
     {
-      path: '/sample/sampleList3',
-      component: () => import('@/views/sample/SampleList3.vue')
-    },
-    {
       path: '/modalTest',
       component: () => import('@/components/modal/CompanyModal.vue'),
     },
