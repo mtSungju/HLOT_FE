@@ -39,22 +39,63 @@
         </v-row>
         <v-row>
           <v-col>
+            <hr><br>
+          </v-col>
+        </v-row>
+        <v-row style="margin-bottom: 30px">
+          <v-col style="font-size: 20px;">
             업체담당자
-            <br/><br/>
+          </v-col>
+          <v-col style="text-align: right">
+            <v-btn size="small" @click="addManager()" color="green">담당자 추가</v-btn>
+            　
+            <v-btn size="small" color="red">담당자 삭제</v-btn>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-text-field
+              variant="outlined"
+              v-model="companyManagerTemp.companyManagerName"
+              label="담당자 명"
+            />
+          </v-col>
+          <v-col>
+            <v-text-field
+              variant="outlined"
+              v-model="companyManagerTemp.companyManagerTel"
+              label="담당자 번호"
+            />
+          </v-col>
+          <v-col>
+            <v-text-field
+              variant="outlined"
+              v-model="companyManagerTemp.remark"
+              label="비고"
+            />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <v-data-table
+              style="height: 170px"
               :headers="headers"
-              :items="companySampleData"
-              item-value="companyId"
-              v-model="selected"
-              :search="search"
+              :items="companyManagers"
               :items-per-page-options="itemsPerPageOptions"
-              class="elevation-1 table-list_mt"
+              class="elevation-1"
             ></v-data-table>
           </v-col>
+        </v-row>
+        <v-row>
+          <div class="modal-btn-list">
+            <v-btn
+              color="green"
+            >등록</v-btn>
+
+            <v-btn
+              color="red"
+            >삭제</v-btn>
+          </div>
         </v-row>
       </v-container>
     </div>
@@ -77,14 +118,32 @@ const headers = [
 <script>
 export default {
   name: "CompanyModal",
-  data(){
+  mounted() {
+  },
+  data() {
     return {
-      company: {
+
+      company: {  // 업체
         companyName: '',        // 업체명
         businessRegistNumb: '', // 사업자번호
         companyTel: '',         // 업체번호
         remark: '',             // 비고
+      },
+
+      companyManagers: [],
+
+      companyManagerTemp: {   // 업체담당자
+        companyManagerName: '', // 업체담당자명
+        companyManagerTel: '',  // 업체담당자번호
+        remark: ''              // 비고
       }
+    }
+  },
+  methods : {
+    addManager: function() {
+      console.log(this.companyManagerTemp);
+    },
+    deleteManager: function() {
     }
   }
 }

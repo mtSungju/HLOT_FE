@@ -54,3 +54,8 @@ div {
     content: "\00d7";
     font-size: 20pt;
 }
+
+.modal-btn-list {
+    text-align: right;
+    margin-top: 15px;
+}

@@ -20,17 +20,5 @@ export default createRouter({
       path: '/project/projectList',
       component: () => import('@/views/project/ProjectList.vue')
     },
-    {
-      path: '/sample/sampleList',
-      component: () => import('@/views/sample/SampleList.vue')
-    },
-    {
-      path: '/sample/sampleList2',
-      component: () => import('@/views/sample/SampleList2.vue')
-    },
-    {
-      path: '/modalTest',
-      component: () => import('@/components/modal/CompanyModal.vue'),
-    },
   ],
 })
