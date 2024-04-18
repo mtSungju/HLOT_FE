@@ -34,8 +34,6 @@ export default {
         { name: '업체관리',    path: '/company/companyList' },
         { name: '견적서관리',   path: '/estimate/estimateList' },
         { name: '프로젝트관리',  path: '/project/projectList' },
-        { name: '샘플',         path: '/sample/sampleList' },
-        { name: '샘플2',         path: '/sample/sampleList2' },
       ]
 
     }
