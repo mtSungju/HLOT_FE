@@ -1,8 +1,8 @@
 <template>
   <ModalLayout>
     <div class="modal-title">
-      업체관리 {{ mode === Config.MODAL_MODE.DETAIL ? '상세'
-                : mode === Config.MODAL_MODE.REG ? '등록' : '수정' }}
+      업체관리 {{ mode === MODAL_MODE.DETAIL ? '상세'
+                : mode === MODAL_MODE.REG ? '등록' : '수정' }}
     </div>
 
     <div class="modal-content">
@@ -85,7 +85,7 @@
               style="height: 200px"
               :headers="headers"
               :items="companyManagers"
-              :items-per-page-options="itemsPerPageOptions"
+              :items-per-page-options="ITEMS_PER_PAGE_OPTIONS"
               class="elevation-1"
             ></v-data-table>
           </v-col>
@@ -113,6 +113,7 @@
 
 <script setup>
 import ModalLayout from "@/layouts/ModalLayout.vue";
+import {ITEMS_PER_PAGE_OPTIONS} from "@/util/config";
 const headers = [
   { title: '담당자명', key:'companyManagerName' },
   { title: '전화번호', key:'companyManagerTel'},
@@ -122,19 +123,15 @@ const headers = [
 
 <script>
 import companyApi from '@/api/company.js'
-import Config from "@/util/config";
+import {MODAL_MODE} from "@/util/config";
 import store from "@/store/store";
 export default {
   name: "CompanyModal",
-  created() {
-  },
   mounted() {
     console.log(store.getters.getParams.mode + ' : ' + store.getters.getParams.key);
   },
   data() {
     return {
-      itemsPerPageOptions: Config.ITEMS_PER_PAGE_OPTIONS,
-
       mode: store.getters.getParams.mode,
       key:store.getters.getParams.key,
 

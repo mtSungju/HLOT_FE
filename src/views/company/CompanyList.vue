@@ -25,7 +25,7 @@
       :headers="headers"
       :items="companys"
       :search="search"
-      :items-per-page-options="itemsPerPageOptions"
+      :items-per-page-options="ITEMS_PER_PAGE_OPTIONS"
       class="elevation-1 table-list_mt"
     >
 
@@ -35,11 +35,9 @@
 </template>
 
 <script setup>
-import Config from "@/util/config"
 import CompanyModal from "@/components/modal/CompanyModal.vue";
 import store from "@/store/store";
-
-const itemsPerPageOptions = Config.ITEMS_PER_PAGE_OPTIONS;
+import {ITEMS_PER_PAGE_OPTIONS} from "@/util/config";
 
 const headers = [
   { title: '업체명', key:'companyName' },
@@ -55,7 +53,7 @@ const headers = [
 <script>
 import companyApi from '@/api/company.js'
 import store from "@/store/store";
-import Config from "@/util/config";
+import {MODAL_MODE} from "@/util/config";
 
 export default {
   created() {
@@ -80,13 +78,12 @@ export default {
 
     /* 등록화면 */
     openReg(){
-      this.modalMode = Config.MODAL_MODE.REG;
-      store.commit('toggleModal', {key: '', mode: Config.MODAL_MODE.REG});
+      store.commit('toggleModal', {key: '', mode: MODAL_MODE.REG});
     },
 
     /* 상세조회화면 */
     openDetail(item, row) {
-      store.commit('toggleModal', {key: row.item.companyId, mode: Config.MODAL_MODE.DETAIL});
+      store.commit('toggleModal', {key: row.item.companyId, mode: MODAL_MODE.DETAIL});
     }
   }
 };
