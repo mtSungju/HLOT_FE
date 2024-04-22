@@ -1,7 +1,8 @@
 <template>
   <ModalLayout>
     <div class="modal-title">
-      프로젝트 등록
+      프로젝트 관리{{ mode === MODAL_MODE.DETAIL ? '상세'
+                : mode === MODAL_MODE.REG ? '등록' : '수정' }}
     </div>
 
     <div class="modal-content">
@@ -12,12 +13,13 @@
               <v-text-field
                 v-model="project.projectName"
                 label="프로젝트 이름"
+                :readonly="mode === 'D'"
               ></v-text-field>
             </v-col>
             <v-col>
               <label> 프로젝트 기간</label><br>
-              <input type="date" id="strDate" v-model="project.projectStDate"/>  ~
-              <input type="date" id="endDate" v-model="project.projectEndDate"/>  
+              <input type="date" id="strDate" :readonly="mode === 'D'" v-model="project.projectStDate"/>  ~
+              <input type="date" id="endDate" :readonly="mode === 'D'" v-model="project.projectEndDate"/>  
             </v-col>
           </v-row>
           <v-row>
@@ -26,7 +28,7 @@
             label="진행상태"
             :items="['진행', '완료', '연장']"
             v-model="project.projectStatus"
-            
+            :readonly="mode === 'D'"
             >
             </v-select>
            </v-col>
@@ -36,7 +38,7 @@
               
               <v-text-field
               label="고객사"
-             
+              :readonly="mode === 'D'"
               v-model="project.customer">
               </v-text-field>
               
@@ -44,12 +46,12 @@
           </v-row>
           <v-row>
             <v-col>
-              <v-textarea v-model="project.remark" label="비고" variant="outlined" rows="10"></v-textarea>
+              <v-textarea v-model="project.remark" :readonly="mode === 'D'" label="비고" variant="outlined" rows="10"></v-textarea>
             </v-col>
           </v-row>
           <v-row>
-            <v-btn id="regist" @click="registProject">등록</v-btn>
-            <v-btn id="update" v-if="visible">수정</v-btn>
+            
+            <v-btn id="update" :readonly="mode === 'D'" @click="updateProject">수정</v-btn>
             <v-btn @click="close()">취소</v-btn>
             
           </v-row>
@@ -68,20 +70,28 @@ import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const BE_PORT = import.meta.env.VITE_BE_PORT;
+import {MODAL_MODE} from "@/util/config";
 
 
 export default {
   name: "CompanyModal",
 
-  mounted(){
-    console.log(this.projectId);
-
+  beforeMount(){
     //상세조회
-    if(this.projectId !== null){
+    if(this.mode == 'D'){
         /** 프로젝트 단건 조회*/
         this.selectProject();
     }
 
+  },
+
+  mounted(){
+    
+    if(this.mode == 'D'){
+      console.log("@@@@@@@@@@@@@@");
+      
+    }
+    
 
 
     if(this.project.projectName !== ''){
@@ -89,13 +99,13 @@ export default {
     }
   },  
 
-  props: {  
-    projectId : ''
-  },
+
 
   data() {
     return {
       visible : false,
+      mode: store.getters.getParams.mode,
+      key:store.getters.getParams.key,
       project : {
         projectName : '', // 프로젝트명
         projectStDate : '', // 프로젝트 시작일
@@ -123,12 +133,17 @@ export default {
       // 프로젝트 단건조회
       selectProject(){ 
         
-        axios.get(BASE_URL + ':' + 8081 + '/'  + 'api/project/' + this.projectId).then((response)=>{
+        axios.get(BASE_URL + ':' + 8081 + '/'  + 'api/project/' + this.key).then((response)=>{
           
           this.project = response.data;
           
         })
 
+      },
+
+      // 프로젝트 수정
+      updateProject(){
+        this.mode = 'M';
       }
 
     }

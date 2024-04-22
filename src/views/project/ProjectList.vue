@@ -1,5 +1,5 @@
 <template>
-  <ProjectModal v-if="store.getters.isOpenModal"  :projectId='this.projects.projectId'/>
+  <ProjectModal v-if="store.getters.isOpenModal" />
 
   <v-card class="table-container_mt">
     <div class="table-title_mt">
@@ -25,7 +25,7 @@
       v-model="selected"
       :search="search"
       select-strategy="page"
-      :items-per-page-options="itemsPerPageOptions"
+      :items-per-page-options="ITEMS_PER_PAGE_OPTIONS"
       class="elevation-1 table-list_mt"
       show-select
       @click:row="popUpOpen"
@@ -40,8 +40,8 @@
 <script setup>
   import cmm from '@/util/cmm.js'
   import ProjectModal from "@/components/modal/ProjectModal.vue";
-
-  const itemsPerPageOptions = cmm.cmmConfig.itemsPerPageOptions;
+  import {ITEMS_PER_PAGE_OPTIONS} from "@/util/config";
+  
 
   const headers = [
     { title: '프로젝트명', key:'projectName' },
@@ -60,17 +60,21 @@
 import store from "@/store/store";
 import api from '@/util/apiUtil.js';
 import axios from "axios";
+import {MODAL_MODE} from "@/util/config";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const BE_PORT = import.meta.env.VITE_BE_PORT;
 
 export default {
-  mounted() {
-    // this.projects = api.projectSampleData();
 
+  // 화면 로드되기전에 data 조회
+  beforeMount(){
+    console.log("beforeMount");
     this.selectProjectList(); // 프로젝트리스트 조회
+  },
 
-
+  mounted() {
+    console.log("Mount");
   },
   computed: {
       store() {
@@ -94,14 +98,15 @@ export default {
       console.log(item.projectId);
 
       this.projects.projectId = item.projectId;
-
-      this.$store.commit("toggleModal");
+      // key : 프로젝트 id , mode : D
+      this.$store.commit("toggleModal", {key: item.projectId, mode: MODAL_MODE.DETAIL});
 
     },
 
     pushRegPop: () => {
-      store.commit("toggleModal");
-      
+      // key : 프로젝트 id , mode : R
+      store.commit("toggleModal",{key: '', mode: MODAL_MODE.REG});
+
     },
 
      selectProjectList(){ // 프로젝트 리스트 조회
