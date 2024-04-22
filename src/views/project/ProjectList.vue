@@ -1,5 +1,5 @@
 <template>
-  <ProjectModal v-if="store.getters.isOpenModal" />
+  <ProjectModal v-if="store.getters.isOpenModal"  :projectId='this.projects.projectId'/>
 
   <v-card class="table-container_mt">
     <div class="table-title_mt">
@@ -21,7 +21,7 @@
     <v-data-table
       :headers="headers"
       :items="projects"
-      item-value="projectName"
+      item-value="projectId"
       v-model="selected"
       :search="search"
       select-strategy="page"
@@ -30,8 +30,6 @@
       show-select
       @click:row="popUpOpen"
     >
-
-
     </v-data-table>
     {{this.connectData}}
   </v-card>
@@ -52,6 +50,7 @@
     { title: '프로젝트상태', key:'projectStatus'},
     { title: '고객사',  key:'customer'},
     { title: '비고',  key:'remark'},
+    
   ];
 </script>
 
@@ -92,8 +91,9 @@ export default {
       // 등록 로직
     },
     popUpOpen(event,{item}){
-      console.log(item.projectName);
+      console.log(item.projectId);
 
+      this.projects.projectId = item.projectId;
 
       this.$store.commit("toggleModal");
 
@@ -101,21 +101,19 @@ export default {
 
     pushRegPop: () => {
       store.commit("toggleModal");
-
+      
     },
 
      selectProjectList(){ // 프로젝트 리스트 조회
 
-       axios.get(BASE_URL + ':' + 8081 + '/'  + 'project/selectProjectList').then((response)=>{
+       axios.get(BASE_URL + ':' + 8081 + '/'  + 'api/project').then((response)=>{
         this.projects = response.data;
-        console.log(JSON.stringify(this.projects));
+        
       })
 
     },
 
-    selectProject(){ // 단건조회
-
-    }
+  
   }
 };
 </script>

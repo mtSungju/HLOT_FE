@@ -16,8 +16,8 @@
             </v-col>
             <v-col>
               <label> 프로젝트 기간</label><br>
-              <input type="date" id="strDate" v-model="project.strDate"/>  ~
-              <input type="date" id="endDate" v-model="project.endDate"/>  
+              <input type="date" id="strDate" v-model="project.projectStDate"/>  ~
+              <input type="date" id="endDate" v-model="project.projectEndDate"/>  
             </v-col>
           </v-row>
           <v-row>
@@ -74,19 +74,32 @@ export default {
   name: "CompanyModal",
 
   mounted(){
-    console.log("2222222");
+    console.log(this.projectId);
+
+    //상세조회
+    if(this.projectId !== null){
+        /** 프로젝트 단건 조회*/
+        this.selectProject();
+    }
+
+
+
     if(this.project.projectName !== ''){
       this.visible = true;
     }
   },  
+
+  props: {  
+    projectId : ''
+  },
 
   data() {
     return {
       visible : false,
       project : {
         projectName : '', // 프로젝트명
-        strDate : '', // 프로젝트 시작일
-        endDate : '', // 프로젝트 종료일
+        projectStDate : '', // 프로젝트 시작일
+        projectEndDate : '', // 프로젝트 종료일
         projectStatus : '', // 프로젝트 상태
         customer : '', // 고객사
         remark : '', // 비고
@@ -101,11 +114,23 @@ export default {
 
       // 프로젝트 정보 등록
       registProject(){
-        axios.post(BASE_URL + ':' + 8081 + '/'  + 'project/postProject',this.project).then((response)=>{
+        axios.post(BASE_URL + ':' + 8081 + '/'  + 'api/project',this.project).then((response)=>{
         console.log(response);
         console.log(response.status);
       })
+      },
+
+      // 프로젝트 단건조회
+      selectProject(){ 
+        
+        axios.get(BASE_URL + ':' + 8081 + '/'  + 'api/project/' + this.projectId).then((response)=>{
+          
+          this.project = response.data;
+          
+        })
+
       }
+
     }
 }
 </script>
