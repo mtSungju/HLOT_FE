@@ -37,7 +37,7 @@ div {
     background: white;
     border-radius: 8px;
     padding: 20px;
-    margin-top: 5%;
+    margin-top: 3%;
     margin-left: 14%;
     align-items: center;
     justify-content: center;
@@ -58,4 +58,5 @@ div {
 .modal-btn-list {
     text-align: right;
     margin-top: 15px;
+    width: 100%;
 }

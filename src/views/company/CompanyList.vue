@@ -20,13 +20,11 @@
 
     <v-data-table
       :headers="headers"
-      :items="companySampleData"
+      :items="companys"
       item-value="companyId"
-      v-model="selected"
       :search="search"
       :items-per-page-options="itemsPerPageOptions"
       class="elevation-1 table-list_mt"
-      show-select
     >
 
     </v-data-table>
@@ -53,24 +51,28 @@ const headers = [
 </script>
 
 <script>
-import api from '@/util/api.js'
+import companyApi from '@/api/company.js'
 import store from "@/store/store";
 
 export default {
   created() {
   },
   mounted() {
-    /* 업체명, 사업자번호, 전화번호, 비고, 등록일자, 등록자 */
-    this.companySampleData = api.companySampleData();
+    this.getCompanys();
+
   },
   data() {
     return {
       search: '',
-      companySampleData: [],
-      selected : [],
+      companys: []
     };
   },
   methods: {
+    async getCompanys(){
+      await companyApi.companys().then(res => {
+        this.companys = res.data;
+      });
+    }
   }
 };
 </script>

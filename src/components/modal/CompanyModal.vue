@@ -42,7 +42,7 @@
             <hr><br>
           </v-col>
         </v-row>
-        <v-row style="margin-bottom: 30px">
+        <v-row style="margin-bottom: 10px">
           <v-col style="font-size: 20px;">
             업체담당자
           </v-col>
@@ -58,6 +58,7 @@
               variant="outlined"
               v-model="companyManagerTemp.companyManagerName"
               label="담당자 명"
+              density="compact"
             />
           </v-col>
           <v-col>
@@ -65,6 +66,7 @@
               variant="outlined"
               v-model="companyManagerTemp.companyManagerTel"
               label="담당자 번호"
+              density="compact"
             />
           </v-col>
           <v-col>
@@ -72,13 +74,14 @@
               variant="outlined"
               v-model="companyManagerTemp.remark"
               label="비고"
+              density="compact"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <v-data-table
-              style="height: 170px"
+              style="height: 200px"
               :headers="headers"
               :items="companyManagers"
               :items-per-page-options="itemsPerPageOptions"
@@ -89,9 +92,13 @@
         <v-row>
           <div class="modal-btn-list">
             <v-btn
+              color="blue"
+            >수정</v-btn>
+            　
+            <v-btn
               color="green"
             >등록</v-btn>
-
+            　
             <v-btn
               color="red"
             >삭제</v-btn>

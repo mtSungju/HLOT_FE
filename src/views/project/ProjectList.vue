@@ -36,13 +36,13 @@
     {{this.connectData}}
   </v-card>
 
- 
+
 </template>
 
 <script setup>
   import cmm from '@/util/cmm.js'
   import ProjectModal from "@/components/modal/ProjectModal.vue";
-  
+
   const itemsPerPageOptions = cmm.cmmConfig.itemsPerPageOptions;
 
   const headers = [
@@ -59,7 +59,7 @@
 
 
 import store from "@/store/store";
-import api from '@/util/api.js';
+import api from '@/util/apiUtil.js';
 import axios from "axios";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
@@ -68,9 +68,9 @@ const BE_PORT = import.meta.env.VITE_BE_PORT;
 export default {
   mounted() {
     // this.projects = api.projectSampleData();
-    
+
     this.selectProjectList(); // 프로젝트리스트 조회
-    
+
 
   },
   computed: {
@@ -96,16 +96,16 @@ export default {
 
 
       this.$store.commit("toggleModal");
-      
+
     },
 
     pushRegPop: () => {
       store.commit("toggleModal");
-      
+
     },
 
-     selectProjectList(){ // 프로젝트 리스트 조회      
-      
+     selectProjectList(){ // 프로젝트 리스트 조회
+
        axios.get(BASE_URL + ':' + 8081 + '/'  + 'project/selectProjectList').then((response)=>{
         this.projects = response.data;
         console.log(JSON.stringify(this.projects));
