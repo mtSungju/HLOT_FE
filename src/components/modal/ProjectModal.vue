@@ -48,7 +48,7 @@
             </v-col>
           </v-row>
           <v-row>
-            <v-btn id="regist">등록</v-btn>
+            <v-btn id="regist" @click="registProject">등록</v-btn>
             <v-btn id="update" v-if="visible">수정</v-btn>
             <v-btn @click="close()">취소</v-btn>
             
@@ -64,6 +64,11 @@ import ModalLayout from "@/layouts/ModalLayout.vue";
 
 <script>
 import store from "@/store/store";
+import axios from "axios";
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BE_PORT = import.meta.env.VITE_BE_PORT;
+
 
 export default {
   name: "CompanyModal",
@@ -92,6 +97,14 @@ export default {
   methods: {
       close:()=>{
         store.commit("toggleModal");
+      },
+
+      // 프로젝트 정보 등록
+      registProject(){
+        axios.post(BASE_URL + ':' + 8081 + '/'  + 'project/postProject',this.project).then((response)=>{
+        console.log(response);
+        console.log(response.status);
+      })
       }
     }
 }

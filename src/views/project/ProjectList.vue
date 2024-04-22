@@ -47,7 +47,8 @@
 
   const headers = [
     { title: '프로젝트명', key:'projectName' },
-    { title: '프로젝트일자', key:'projectStDate'},
+    { title: '프로젝트시작일자', key:'projectStDate'},
+    { title: '프로젝트종료일자', key:'projectEndDate'},
     { title: '프로젝트상태', key:'projectStatus'},
     { title: '고객사',  key:'customer'},
     { title: '비고',  key:'remark'},
@@ -106,7 +107,8 @@ export default {
      selectProjectList(){ // 프로젝트 리스트 조회      
       
        axios.get(BASE_URL + ':' + 8081 + '/'  + 'project/selectProjectList').then((response)=>{
-        this.connectData = response.data;
+        this.projects = response.data;
+        console.log(JSON.stringify(this.projects));
       })
 
     },
