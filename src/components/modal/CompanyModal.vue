@@ -1,7 +1,8 @@
 <template>
   <ModalLayout>
     <div class="modal-title">
-      업체관리 등록
+      업체관리 {{ mode === Config.MODAL_MODE.DETAIL ? '상세'
+                : mode === Config.MODAL_MODE.REG ? '등록' : '수정' }}
     </div>
 
     <div class="modal-content">
@@ -112,25 +113,30 @@
 
 <script setup>
 import ModalLayout from "@/layouts/ModalLayout.vue";
-import cmm from "@/util/cmm";
-
-const itemsPerPageOptions = cmm.cmmConfig.itemsPerPageOptions;
 const headers = [
   { title: '담당자명', key:'companyManagerName' },
   { title: '전화번호', key:'companyManagerTel'},
   { title: '비고', key:'remark'},
 ];
-
 </script>
 
 <script>
 import companyApi from '@/api/company.js'
+import Config from "@/util/config";
+import store from "@/store/store";
 export default {
   name: "CompanyModal",
+  created() {
+  },
   mounted() {
+    console.log(store.getters.getParams.mode + ' : ' + store.getters.getParams.key);
   },
   data() {
     return {
+      itemsPerPageOptions: Config.ITEMS_PER_PAGE_OPTIONS,
+
+      mode: store.getters.getParams.mode,
+      key:store.getters.getParams.key,
 
       company: {  // 업체
         companyName: '',        // 업체명

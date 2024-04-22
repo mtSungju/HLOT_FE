@@ -1,5 +1,7 @@
 <template>
-  <CompanyModal v-if="store.getters.isOpenModal" />
+  <CompanyModal
+    v-if="store.getters.isOpenModal"
+  />
 
   <v-card class="table-container_mt">
     <div class="table-title_mt">
@@ -15,13 +17,13 @@
     </v-card-title>
 
     <div class="table-btn-list">
-      <v-btn color="#5865f2" @click="store.commit('toggleModal')">등록</v-btn>
+      <v-btn color="#5865f2" @click="openReg">등록</v-btn>
     </div>
 
     <v-data-table
+      @click:row="openDetail"
       :headers="headers"
       :items="companys"
-      item-value="companyId"
       :search="search"
       :items-per-page-options="itemsPerPageOptions"
       class="elevation-1 table-list_mt"
@@ -33,11 +35,11 @@
 </template>
 
 <script setup>
-import cmm from '@/util/cmm.js'
+import Config from "@/util/config"
 import CompanyModal from "@/components/modal/CompanyModal.vue";
 import store from "@/store/store";
 
-const itemsPerPageOptions = cmm.cmmConfig.itemsPerPageOptions;
+const itemsPerPageOptions = Config.ITEMS_PER_PAGE_OPTIONS;
 
 const headers = [
   { title: '업체명', key:'companyName' },
@@ -53,6 +55,7 @@ const headers = [
 <script>
 import companyApi from '@/api/company.js'
 import store from "@/store/store";
+import Config from "@/util/config";
 
 export default {
   created() {
@@ -63,15 +66,27 @@ export default {
   },
   data() {
     return {
-      search: '',
-      companys: []
+      search: '',     // 검색텍스트
+      companys: [],   // 업체 Array
     };
   },
   methods: {
+    /* company 목록 조회 */
     async getCompanys(){
       await companyApi.companys().then(res => {
         this.companys = res.data;
       });
+    },
+
+    /* 등록화면 */
+    openReg(){
+      this.modalMode = Config.MODAL_MODE.REG;
+      store.commit('toggleModal', {key: '', mode: Config.MODAL_MODE.REG});
+    },
+
+    /* 상세조회화면 */
+    openDetail(item, row) {
+      store.commit('toggleModal', {key: row.item.companyId, mode: Config.MODAL_MODE.DETAIL});
     }
   }
 };
