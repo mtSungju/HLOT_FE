@@ -6,7 +6,11 @@ const REQUEST_URL = `${BASE_URL}:${BE_MANAGEMENT_PORT}`;
 export default {
 
   companys(){
-    return axios.get(REQUEST_URL + '/api/company/companys');
+    return axios.get(REQUEST_URL + '/api/company');
+  },
+
+  newCompany(company) {
+    return axios.post(REQUEST_URL + '/api/company', company);
   }
 
 }

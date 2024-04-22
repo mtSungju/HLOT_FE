@@ -97,7 +97,8 @@
             　
             <v-btn
               color="green"
-            >등록</v-btn>
+              @click="newCompany"
+            >저장</v-btn>
             　
             <v-btn
               color="red"
@@ -123,6 +124,7 @@ const headers = [
 </script>
 
 <script>
+import companyApi from '@/api/company.js'
 export default {
   name: "CompanyModal",
   mounted() {
@@ -135,6 +137,7 @@ export default {
         businessRegistNumb: '', // 사업자번호
         companyTel: '',         // 업체번호
         remark: '',             // 비고
+        registUserName: '관리자' // 등록자
       },
 
       companyManagers: [],
@@ -147,6 +150,9 @@ export default {
     }
   },
   methods : {
+    newCompany: function() {
+      companyApi.newCompany(this.company);
+    },
     addManager: function() {
       console.log(this.companyManagerTemp);
     },
