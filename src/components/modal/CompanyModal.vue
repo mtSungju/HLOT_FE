@@ -48,7 +48,7 @@
             업체담당자
           </v-col>
           <v-col style="text-align: right">
-            <v-btn @click="addManager()" color="green">담당자 추가</v-btn>
+            <v-btn @click="openManagerModal()" color="green">담당자 추가</v-btn>
           </v-col>
         </v-row>
         <v-row>
@@ -60,22 +60,14 @@
                   <th>전화번호</th>
                   <th>비　　고</th>
                   <th>등록일자</th>
-                  <th></th>
-                  <th></th>
                 </tr>
               </thead>
               <tbody>
-                  <tr v-for="manager in company.companyManagers">
+                  <tr v-for="manager in company.companyManagers" @click="openManagerModal(manager)">
                     <td>{{ manager.companyManagerName }}</td>
                     <td>{{ manager.companyManagerTel }}</td>
                     <td>{{ manager.remark }}</td>
                     <td>{{ manager.registDate }}</td>
-                    <td style="text-align: center">
-                      <img src="../../assets/icon/icon-edit.png" @click="editManager()" height="20" width="20" alt=""/>
-                    </td>
-                    <td style="text-align: center">
-                      <img src="../../assets/icon/icon-delete.png" @click="deleteManager()" height="20" width="20" alt=""/>
-                    </td>
                   </tr>
               </tbody>
             </table>
@@ -102,8 +94,45 @@
   </ModalLayout>
 
   <!-- 업체 담당자 -->
-  <div class="child-modal">
+  <div v-if="managerModal"  class="child-modal">
 
+    <div style="text-align: right">
+      <div @click="closeManagerModal" class="close"></div>
+    </div>
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="companyManager.companyManagerName"
+          label="업체담당자"
+        />
+      </v-col>
+      <v-col>
+        <v-text-field
+          v-model="companyManager.companyManagerTel"
+          label="전화번호"
+        />
+      </v-col>
+    </v-row>
+    <v-row>
+      <v-col>
+        <v-text-field
+          v-model="companyManager.remark"
+          label="비고"
+        />
+      </v-col>
+    </v-row>
+    <div class="modal-btn-list">
+      <v-btn
+        color="green"
+        @click="addManager"
+      >저장</v-btn>
+      　
+      <v-btn
+        v-if="companyManager.companyId"
+        color="red"
+        @click="deleteManager"
+      >삭제</v-btn>
+    </div>
   </div>
 
 </template>
@@ -129,6 +158,8 @@ export default {
   },
   data() {
     return {
+      managerModal: false,
+
       mode: store.getters.getParams.mode,
       key:store.getters.getParams.key,
 
@@ -169,14 +200,30 @@ export default {
         this.companyManager = {};
 
         this.getCompany();
+        this.managerModal = false;
       });
     },
     /* company_manager 삭제 */
     async deleteManager() {
+      if(!this.companyManager.companyManagerId) {
+        // TODO : 알림메세지 처리
+        return false;
+      }
+      companyApi.deleteCompanyManager(this.companyManager.companyManagerId).then(res => {
+        this.companyManager = {};
+        this.managerModal = false;
+        this.getCompany();
+      });
     },
-    /* company_manager 수정 */
-    async editManager() {
-
+    /* company_manager modal 열기 */
+    openManagerModal(manager = {}) {
+      this.companyManager = manager;
+      this.managerModal = true;
+    },
+    /* company_manager modal 닫기 */
+    closeManagerModal() {
+      this.companyManager = {};
+      this.managerModal = false;
     }
   }
 }
@@ -188,12 +235,6 @@ export default {
 
   .child-modal{
     width: 500px;
-    height: 200px;
-    background-color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
+    height: 320px;
   }
 </style>

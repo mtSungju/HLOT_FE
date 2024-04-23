@@ -7,6 +7,13 @@
 .custom-table_mt td {
     padding: 6px 15px;
 }
+
+.custom-table_mt tbody tr:hover {
+    cursor: pointer;
+    background-color: #7c7c7c;
+    color: white;
+}
+
 .custom-table_mt th {
     background: #42444e;
     color: #fff;

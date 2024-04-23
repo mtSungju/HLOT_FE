@@ -14,12 +14,17 @@ export default {
   },
 
   newCompany(company) {
+    company.registUserName = '유영국';
     return axios.post(REQUEST_URL + '/api/company', company);
   },
 
   newCompanyManager(companyManager) {
     companyManager.registUserName = '유영국';
     return axios.post(REQUEST_URL + '/api/company/companyManager', companyManager);
+  },
+
+  deleteCompanyManager(id) {
+    return axios.delete(REQUEST_URL + `/api/company/companyManager/${id}`);
   }
 
 }

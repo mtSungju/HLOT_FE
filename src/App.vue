@@ -11,7 +11,6 @@
 
 <script>
 import Header from '@/components/common/Header.vue';
-import Popup from '@/components/common/Popup.vue'
 import store from "@/store/store";
   export default {
     computed: {
@@ -19,7 +18,7 @@ import store from "@/store/store";
         return store
       }
     },
-    components: {Popup, Header},
+    components: {Header},
   }
 </script>
 
