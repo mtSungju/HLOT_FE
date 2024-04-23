@@ -49,15 +49,13 @@
           </v-col>
           <v-col style="text-align: right">
             <v-btn size="small" @click="addManager()" color="green">담당자 추가</v-btn>
-            　
-            <v-btn size="small" color="red">담당자 삭제</v-btn>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <v-text-field
               variant="outlined"
-              v-model="companyManagerTemp.companyManagerName"
+              v-model="companyManager.companyManagerName"
               label="담당자 명"
               density="compact"
             />
@@ -65,7 +63,7 @@
           <v-col>
             <v-text-field
               variant="outlined"
-              v-model="companyManagerTemp.companyManagerTel"
+              v-model="companyManager.companyManagerTel"
               label="담당자 번호"
               density="compact"
             />
@@ -73,7 +71,7 @@
           <v-col>
             <v-text-field
               variant="outlined"
-              v-model="companyManagerTemp.remark"
+              v-model="companyManager.remark"
               label="비고"
               density="compact"
             />
@@ -81,13 +79,32 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-data-table
-              style="height: 200px"
-              :headers="headers"
-              :items="companyManagers"
-              :items-per-page-options="ITEMS_PER_PAGE_OPTIONS"
-              class="elevation-1"
-            ></v-data-table>
+            <table class="custom-table_mt">
+              <thead>
+                <tr>
+                  <th>담당자명</th>
+                  <th>전화번호</th>
+                  <th>비　　고</th>
+                  <th>등록일자</th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr v-for="manager in company.companyManagers">
+                    <td>{{ manager.companyManagerName }}</td>
+                    <td>{{ manager.companyManagerTel }}</td>
+                    <td>{{ manager.remark }}</td>
+                    <td>{{ manager.registDate }}</td>
+                    <td style="text-align: center">
+                      <img src="../../assets/icon/icon-edit.png" @click="editManager()" height="20" width="20" alt=""/>
+                    </td>
+                    <td style="text-align: center">
+                      <img src="../../assets/icon/icon-delete.png" @click="deleteManager()" height="20" width="20" alt=""/>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
           </v-col>
         </v-row>
         <v-row>
@@ -107,13 +124,16 @@
           </div>
         </v-row>
       </v-container>
+
     </div>
+
   </ModalLayout>
+
 </template>
 
 <script setup>
 import ModalLayout from "@/layouts/ModalLayout.vue";
-import {ITEMS_PER_PAGE_OPTIONS} from "@/util/config";
+import {ITEMS_PER_PAGE_OPTIONS, MODAL_MODE} from "@/util/config";
 const headers = [
   { title: '담당자명', key:'companyManagerName' },
   { title: '전화번호', key:'companyManagerTel'},
@@ -123,12 +143,12 @@ const headers = [
 
 <script>
 import companyApi from '@/api/company.js'
-import {MODAL_MODE} from "@/util/config";
 import store from "@/store/store";
+import validUtil from "@/util/validUtil";
 export default {
   name: "CompanyModal",
-  mounted() {
-    console.log(store.getters.getParams.mode + ' : ' + store.getters.getParams.key);
+  beforeMount() {
+    if(!validUtil.isNull(this.key)) this.getCompany();
   },
   data() {
     return {
@@ -136,30 +156,50 @@ export default {
       key:store.getters.getParams.key,
 
       company: {  // 업체
+        companyId: '',          // 업체ID
         companyName: '',        // 업체명
         businessRegistNumb: '', // 사업자번호
         companyTel: '',         // 업체번호
         remark: '',             // 비고
-        registUserName: '관리자' // 등록자
+        registUserName: '관리자',// 등록자
+
+        companyManagers: [] // 업체담당자
       },
 
-      companyManagers: [],
-
-      companyManagerTemp: {   // 업체담당자
+      companyManager: {   // 업체담당자
         companyManagerName: '', // 업체담당자명
         companyManagerTel: '',  // 업체담당자번호
-        remark: ''              // 비고
+        remark: '',             // 비고
+        registDate : ''         // 등록일자
       }
     }
   },
   methods : {
-    newCompany: function() {
-      companyApi.newCompany(this.company);
+    /* company 상세조회 */
+    async getCompany(){
+      await companyApi.company(this.key).then(res => {
+        this.company = res.data;
+      });
     },
-    addManager: function() {
-      console.log(this.companyManagerTemp);
+    /* company 등록 */
+    async newCompany() {
+      await companyApi.newCompany(this.company);
     },
-    deleteManager: function() {
+    /* company_manager 추가 */
+    async addManager() {
+      this.companyManager.companyId = this.company.companyId;
+      await companyApi.newCompanyManager(this.companyManager).then(res => {
+        this.companyManager = {};
+
+        this.getCompany();
+      });
+    },
+    /* company_manager 삭제 */
+    async deleteManager() {
+    },
+    /* company_manager 수정 */
+    async editManager() {
+
     }
   }
 }
@@ -167,4 +207,5 @@ export default {
 
 <style>
   @import "@/assets/styles/modal.css";
+  @import "@/assets/styles/customTable.css";
 </style>
