@@ -48,33 +48,7 @@
             업체담당자
           </v-col>
           <v-col style="text-align: right">
-            <v-btn size="small" @click="addManager()" color="green">담당자 추가</v-btn>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-text-field
-              variant="outlined"
-              v-model="companyManager.companyManagerName"
-              label="담당자 명"
-              density="compact"
-            />
-          </v-col>
-          <v-col>
-            <v-text-field
-              variant="outlined"
-              v-model="companyManager.companyManagerTel"
-              label="담당자 번호"
-              density="compact"
-            />
-          </v-col>
-          <v-col>
-            <v-text-field
-              variant="outlined"
-              v-model="companyManager.remark"
-              label="비고"
-              density="compact"
-            />
+            <v-btn @click="addManager()" color="green">담당자 추가</v-btn>
           </v-col>
         </v-row>
         <v-row>
@@ -124,16 +98,19 @@
           </div>
         </v-row>
       </v-container>
-
     </div>
-
   </ModalLayout>
+
+  <!-- 업체 담당자 -->
+  <div class="child-modal">
+
+  </div>
 
 </template>
 
 <script setup>
 import ModalLayout from "@/layouts/ModalLayout.vue";
-import {ITEMS_PER_PAGE_OPTIONS, MODAL_MODE} from "@/util/config";
+import {MODAL_MODE} from "@/util/config";
 const headers = [
   { title: '담당자명', key:'companyManagerName' },
   { title: '전화번호', key:'companyManagerTel'},
@@ -205,7 +182,18 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   @import "@/assets/styles/modal.css";
   @import "@/assets/styles/customTable.css";
+
+  .child-modal{
+    width: 500px;
+    height: 200px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
 </style>
