@@ -37,7 +37,7 @@
 <script setup>
 import CompanyModal from "@/components/modal/CompanyModal.vue";
 import store from "@/store/store";
-import {ITEMS_PER_PAGE_OPTIONS} from "@/util/config";
+import {ITEMS_PER_PAGE_OPTIONS, MODAL_MODE} from "@/util/config";
 
 const headers = [
   { title: '업체명', key:'companyName' },
@@ -47,20 +47,15 @@ const headers = [
   { title: '등록일자',  key:'registDate'},
   { title: '등록자',  key:'registUserName'},
 ];
-
 </script>
 
 <script>
 import companyApi from '@/api/company.js'
 import store from "@/store/store";
 import {MODAL_MODE} from "@/util/config";
-
 export default {
-  created() {
-  },
-  mounted() {
+  beforeMount() {
     this.getCompanys();
-
   },
   data() {
     return {

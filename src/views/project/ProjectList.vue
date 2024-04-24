@@ -16,11 +16,6 @@
 
     <div class="table-btn-list">
       <v-btn color="#5865f2" @click="pushRegPop">등록</v-btn>
-
-       <v-btn
-          color="red"
-          @click="deleteProject"
-        >삭제</v-btn>
     </div>
 
     <v-data-table
@@ -34,10 +29,9 @@
       class="elevation-1 table-list_mt"
       show-select
       @click:row="popUpOpen"
-      @emitSelectProjectList="selectProjectList"
     >
     </v-data-table>
-    
+    {{this.connectData}}
   </v-card>
 
 
@@ -47,7 +41,7 @@
   import cmm from '@/util/cmm.js'
   import ProjectModal from "@/components/modal/ProjectModal.vue";
   import {ITEMS_PER_PAGE_OPTIONS} from "@/util/config";
-  
+
 
   const headers = [
     { title: '프로젝트명', key:'projectName' },
@@ -56,7 +50,7 @@
     { title: '프로젝트상태', key:'projectStatus'},
     { title: '고객사',  key:'customer'},
     { title: '비고',  key:'remark'},
-    
+
   ];
 </script>
 
@@ -90,16 +84,10 @@ export default {
   data() {
     return {
       search: '',
-      projects: [
-
-      ],
-
-      selected : []
-
-      ,
-      
+      projects: [],
+      selected : [],
       popUpValue : false,
-      
+      connectData : '',
     };
   },
   methods: {
@@ -124,42 +112,13 @@ export default {
      selectProjectList(){ // 프로젝트 리스트 조회
 
        axios.get(BASE_URL + ':' + 8081 + '/'  + 'api/project').then((response)=>{
-        // reponse
-        this.projects = response.data;        
-      }).catch((error)=>{
-          // 오류발생
-      }).then(function(){
-         // 항상 실행
+        this.projects = response.data;
+
       })
 
     },
 
-    deleteProject(){ // 프로젝트 삭제
-    
-      const deldata = this.selected;
 
-      if(this.selected.length <= 0){
-
-        alert("삭제할 행을 선택하세요");
-
-      }else{
-        
-        axios.delete(BASE_URL + ':' + 8081 + '/'  + 'api/project' ,{data : deldata}).then((response)=>{
-          // reponse
-          this.selectProjectList();
-          this.$router.go();
-        }).catch((error)=>{
-            // 오류발생
-        }).then(function(){
-           // 항상 실행
-        });
-
-      }
-      
-
-    }
-
-  
   }
 };
 </script>

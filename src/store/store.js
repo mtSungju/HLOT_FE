@@ -10,18 +10,18 @@ const store = createStore({
   },
 
   getters: {
-    isOpenModal: function(state){
+    isOpenModal(state){
       return state.isOpenModal;
     },
 
-    getParams: function(state) {
+    getParams(state) {
       return state.params;
     }
   },
 
   mutations: {
     /* params = {key : '', mode : ''} */
-    toggleModal: function(state, params = {}){
+    toggleModal(state, params = {}){
       state.params = params;
       state.isOpenModal = !state.isOpenModal;
     }
