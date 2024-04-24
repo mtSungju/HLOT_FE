@@ -1,5 +1,5 @@
 <template>
-  <ProjectModal v-if="store.getters.isOpenModal" />
+  <ProjectModal v-if="store.getters.isOpenModal"  :projectId='this.projects.projectId'/>
 
   <v-card class="table-container_mt">
     <div class="table-title_mt">
@@ -16,6 +16,11 @@
 
     <div class="table-btn-list">
       <v-btn color="#5865f2" @click="pushRegPop">등록</v-btn>
+
+       <v-btn
+          color="red"
+          @click="deleteProject"
+        >삭제</v-btn>
     </div>
 
     <v-data-table
@@ -29,9 +34,10 @@
       class="elevation-1 table-list_mt"
       show-select
       @click:row="popUpOpen"
+      @emitSelectProjectList="selectProjectList"
     >
     </v-data-table>
-    {{this.connectData}}
+    
   </v-card>
 
 
@@ -42,6 +48,7 @@
   import ProjectModal from "@/components/modal/ProjectModal.vue";
   import {ITEMS_PER_PAGE_OPTIONS} from "@/util/config";
 
+  const itemsPerPageOptions = cmm.cmmConfig.itemsPerPageOptions;
 
   const headers = [
     { title: '프로젝트명', key:'projectName' },
@@ -66,15 +73,12 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 const BE_PORT = import.meta.env.VITE_BE_PORT;
 
 export default {
-
-  // 화면 로드되기전에 data 조회
-  beforeMount(){
-    console.log("beforeMount");
-    this.selectProjectList(); // 프로젝트리스트 조회
-  },
-
   mounted() {
-    console.log("Mount");
+    // this.projects = api.projectSampleData();
+
+    this.selectProjectList(); // 프로젝트리스트 조회
+
+
   },
   computed: {
       store() {
@@ -84,10 +88,16 @@ export default {
   data() {
     return {
       search: '',
-      projects: [],
-      selected : [],
+      projects: [
+
+      ],
+
+      selected : []
+
+      ,
+      
       popUpValue : false,
-      connectData : '',
+      
     };
   },
   methods: {
@@ -98,25 +108,62 @@ export default {
       console.log(item.projectId);
 
       this.projects.projectId = item.projectId;
-      // key : 프로젝트 id , mode : D
-      this.$store.commit("toggleModal", {key: item.projectId, mode: MODAL_MODE.DETAIL});
+
+      this.$store.commit("toggleModal");
 
     },
 
     pushRegPop: () => {
-      // key : 프로젝트 id , mode : R
-      store.commit("toggleModal",{key: '', mode: MODAL_MODE.REG});
+      store.commit("toggleModal");
 
     },
 
      selectProjectList(){ // 프로젝트 리스트 조회
 
        axios.get(BASE_URL + ':' + 8081 + '/'  + 'api/project').then((response)=>{
+
+        // reponse
+        this.projects = response.data;        
+      }).catch((error)=>{
+          // 오류발생
+      }).then(function(){
+         // 항상 실행
+
         this.projects = response.data;
+
 
       })
 
     },
+
+
+    deleteProject(){ // 프로젝트 삭제
+    
+      const deldata = this.selected;
+
+      if(this.selected.length <= 0){
+
+        alert("삭제할 행을 선택하세요");
+
+      }else{
+        
+        axios.delete(BASE_URL + ':' + 8081 + '/'  + 'api/project' ,{data : deldata}).then((response)=>{
+          // reponse
+          this.selectProjectList();
+          this.$router.go();
+        }).catch((error)=>{
+            // 오류발생
+        }).then(function(){
+           // 항상 실행
+        });
+
+      }
+      
+
+    }
+
+  
+
 
 
   }
