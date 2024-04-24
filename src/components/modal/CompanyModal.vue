@@ -12,18 +12,21 @@
             <v-text-field
               v-model="company.companyName"
               label="업체명"
+              :readonly="mode === MODAL_MODE.DETAIL"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col>
             <v-text-field
+              :readonly="mode === MODAL_MODE.DETAIL"
               v-model="company.businessRegistNumb"
               label="사업자번호"
             />
           </v-col>
           <v-col>
             <v-text-field
+              :readonly="mode === MODAL_MODE.DETAIL"
               v-model="company.companyTel"
               label="전화번호"
             />
@@ -32,6 +35,7 @@
         <v-row>
           <v-col>
             <v-textarea
+              :readonly="mode === MODAL_MODE.DETAIL"
               filled
               label="비고"
               v-model="company.remark"
@@ -48,7 +52,10 @@
             업체담당자
           </v-col>
           <v-col style="text-align: right">
-            <v-btn @click="openManagerModal()" color="green">담당자 추가</v-btn>
+            <v-btn
+              v-if="mode !== MODAL_MODE.DETAIL"
+              @click="openManagerModal()"
+              color="green">담당자 추가</v-btn>
           </v-col>
         </v-row>
         <v-row>
@@ -76,16 +83,21 @@
         <v-row>
           <div class="modal-btn-list">
             <v-btn
+              @click="mode = MODAL_MODE.MOD"
+              v-if="mode === MODAL_MODE.DETAIL"
               color="blue"
             >수정</v-btn>
             　
             <v-btn
+              v-if="mode !== MODAL_MODE.DETAIL"
               color="green"
               @click="newCompany"
             >저장</v-btn>
             　
             <v-btn
+              v-if="mode !== MODAL_MODE.DETAIL"
               color="red"
+              @click="deleteCompany"
             >삭제</v-btn>
           </div>
         </v-row>
@@ -94,57 +106,54 @@
   </ModalLayout>
 
   <!-- 업체 담당자 -->
-  <div v-if="managerModal"  class="child-modal">
+  <div v-if="managerModal" class="child-modal-overlay">
+    <div v-if="managerModal"  class="child-modal">
 
-    <div style="text-align: right">
-      <div @click="closeManagerModal" class="close"></div>
-    </div>
-    <v-row>
-      <v-col>
-        <v-text-field
-          v-model="companyManager.companyManagerName"
-          label="업체담당자"
-        />
-      </v-col>
-      <v-col>
-        <v-text-field
-          v-model="companyManager.companyManagerTel"
-          label="전화번호"
-        />
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <v-text-field
-          v-model="companyManager.remark"
-          label="비고"
-        />
-      </v-col>
-    </v-row>
-    <div class="modal-btn-list">
-      <v-btn
-        color="green"
-        @click="addManager"
-      >저장</v-btn>
-      　
-      <v-btn
-        v-if="companyManager.companyId"
-        color="red"
-        @click="deleteManager"
-      >삭제</v-btn>
+      <div style="text-align: right">
+        <div @click="closeManagerModal" class="close"></div>
+      </div>
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="companyManager.companyManagerName"
+            label="업체담당자"
+          />
+        </v-col>
+        <v-col>
+          <v-text-field
+            v-model="companyManager.companyManagerTel"
+            label="전화번호"
+          />
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <v-text-field
+            v-model="companyManager.remark"
+            label="비고"
+            filled
+          />
+        </v-col>
+      </v-row>
+      <div class="modal-btn-list">
+        <v-btn
+          color="green"
+          @click="addManager"
+        >저장</v-btn>
+        　
+        <v-btn
+          v-if="companyManager.companyId"
+          color="red"
+          @click="deleteManager"
+        >삭제</v-btn>
+      </div>
     </div>
   </div>
-
 </template>
 
 <script setup>
 import ModalLayout from "@/layouts/ModalLayout.vue";
 import {MODAL_MODE} from "@/util/config";
-const headers = [
-  { title: '담당자명', key:'companyManagerName' },
-  { title: '전화번호', key:'companyManagerTel'},
-  { title: '비고', key:'remark'},
-];
 </script>
 
 <script>
@@ -191,7 +200,17 @@ export default {
     },
     /* company 등록 */
     async newCompany() {
-      await companyApi.newCompany(this.company);
+      await companyApi.newCompany(this.company).then( res => {
+        store.commit('toggleModal');
+      }).finally(function() {
+
+      });
+    },
+    /* company 삭제 */
+    async deleteCompany() {
+      await companyApi.deleteCompany(this.key).then( res => {
+        store.commit('toggleModal');
+      });
     },
     /* company_manager 추가 */
     async addManager() {
