@@ -38,7 +38,7 @@
               
               <v-text-field
               label="고객사"
-              :readonly="mode === 'D'"
+              :readonly="mode === 'R'"
               v-model="project.customer">
               </v-text-field>
               
@@ -50,10 +50,26 @@
             </v-col>
           </v-row>
           <v-row>
+            <!-- <v-btn id="regist" v-if="mode == 'R'" @click="registProject">등록</v-btn>
+            <v-btn id="update" v-if="mode == 'D' || mode == 'M'" @click="updateProject">수정</v-btn>
+            <v-btn @click="close()">취소</v-btn> -->
             
-            <v-btn id="update" :readonly="mode === 'D'" @click="updateProject">수정</v-btn>
-            <v-btn @click="close()">취소</v-btn>
-            
+             <div class="modal-btn-list">
+                <v-btn
+                  color="blue"
+                  @click="updateMode"
+                  v-if="mode === 'D'"
+                >수정</v-btn>
+                　
+                <v-btn
+                  color="green"
+                  @click="registProject"
+                >저장</v-btn>
+                　
+                <v-btn
+                  color="red"
+                >삭제</v-btn>
+            </div>
           </v-row>
       </v-container>
     </div>
@@ -74,7 +90,7 @@ import {MODAL_MODE} from "@/util/config";
 
 
 export default {
-  name: "CompanyModal",
+  name: "ProjectModal",
 
   beforeMount(){
     //상세조회
@@ -123,11 +139,17 @@ export default {
       },
 
       // 프로젝트 정보 등록
-      registProject(){
-        axios.post(BASE_URL + ':' + 8081 + '/'  + 'api/project',this.project).then((response)=>{
-        console.log(response);
-        console.log(response.status);
-      })
+      async registProject(){
+       await axios.post(BASE_URL + ':' + 8081 + '/'  + 'api/project',this.project).then((response)=>{
+          alert("저장되었습니다.");
+          
+      }).catch(function(error){
+
+      }).then(function(){
+        console.log("부모로 넘어가라 !!!!!!");
+        
+      });
+      
       },
 
       // 프로젝트 단건조회
@@ -141,10 +163,11 @@ export default {
 
       },
 
-      // 프로젝트 수정
-      updateProject(){
-        this.mode = 'M';
-      }
+      // 모드 변경
+      updateMode(){
+          this.mode = 'M';
+      },
+     
 
     }
 }
