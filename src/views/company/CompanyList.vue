@@ -67,7 +67,7 @@ export default {
     /* company 목록 조회 */
     async getCompanys(){
       await companyApi.companys().then(res => {
-        this.companys = res.data;
+        this.companys = res.data.data;
       });
     },
 

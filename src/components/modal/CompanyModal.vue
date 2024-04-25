@@ -194,9 +194,7 @@ export default {
   methods : {
     /* company 상세조회 */
     async getCompany(){
-      await companyApi.company(this.key).then(res => {
-        this.company = res.data;
-      });
+      this.company = await companyApi.company(this.key);
     },
     /* company 등록 */
     async newCompany() {
