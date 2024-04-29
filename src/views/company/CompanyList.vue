@@ -66,9 +66,7 @@ export default {
   methods: {
     /* company 목록 조회 */
     async getCompanys(){
-      await companyApi.companys().then(res => {
-        this.companys = res.data.data;
-      });
+      this.companys = await companyApi.companys();
     },
 
     /* 등록화면 */

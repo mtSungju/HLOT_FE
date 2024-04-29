@@ -198,39 +198,31 @@ export default {
     },
     /* company 등록 */
     async newCompany() {
-      await companyApi.newCompany(this.company).then( res => {
-        store.commit('toggleModal');
-      }).finally(function() {
-
-      });
+      await companyApi.newCompany(this.company);
     },
     /* company 삭제 */
     async deleteCompany() {
-      await companyApi.deleteCompany(this.key).then( res => {
-        store.commit('toggleModal');
-      });
+      await companyApi.deleteCompany(this.key);
     },
     /* company_manager 추가 */
-    async addManager() {
+    addManager() {
       this.companyManager.companyId = this.company.companyId;
-      await companyApi.newCompanyManager(this.companyManager).then(res => {
-        this.companyManager = {};
-
+      if(companyApi.newCompanyManager(this.companyManager) > 0){
         this.getCompany();
         this.managerModal = false;
-      });
+      }
     },
     /* company_manager 삭제 */
     async deleteManager() {
       if(!this.companyManager.companyManagerId) {
-        // TODO : 알림메세지 처리
         return false;
       }
-      companyApi.deleteCompanyManager(this.companyManager.companyManagerId).then(res => {
+
+      if( await companyApi.deleteCompanyManager(this.companyManager.companyManagerId) > 0 ) {
         this.companyManager = {};
         this.managerModal = false;
-        this.getCompany();
-      });
+        await this.getCompany();
+      }
     },
     /* company_manager modal 열기 */
     openManagerModal(manager = {}) {
